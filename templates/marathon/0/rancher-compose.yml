@@ -34,8 +34,8 @@ marathon:
   scale: 1
   health_check:
     port: ${MARATHON_HTTP_PORT}
-    interval: 5000
+    interval: 3000
     unhealthy_threshold: 2
     healthy_threshold: 2
     request_line: '/'
-    response_timeout: 3000
+    response_timeout: 2000
