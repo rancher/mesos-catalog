@@ -46,7 +46,6 @@ export MESOS_ZK=$(zk_string)
 {% else %}
 export MESOS_MASTER=$(zk_string)
 {% endif %}
-
 export MESOS_IP=$(metadata self/container/primary_ip)
 export MESOS_HOSTNAME=$(metadata self/host/agent_ip)
 
@@ -68,5 +67,4 @@ fi
   --zk_session_timeout=${ZK_SESSION_TIMEOUT} \
   --port=${MASTER_PORT} \
 {% endif %}
-  --work_dir=/data \
   "$@"
