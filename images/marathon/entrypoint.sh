@@ -5,6 +5,7 @@ METADATA_VERSION=2015-12-19
 METADATA=$METADATA_HOST/$METADATA_VERSION
 
 ZK_SERVICE=${ZK_SERVICE:-"mesos/zk"}
+
 ZK_MESOS_CHROOT=${ZK_MESOS_CHROOT:-"mesos"}
 ZK_MARATHON_CHROOT=${ZK_MARATHON_CHROOT:-"marathon"}
 
@@ -26,10 +27,7 @@ for container in $(curl -s $METADATA/stacks/${ZK[0]}/services/${ZK[1]}/container
 done
 export MARATHON_MASTER=${ZK_STR}/${ZK_MESOS_CHROOT}
 export MARATHON_ZK=${ZK_STR}/${ZK_MARATHON_CHROOT}
-
 export MARATHON_HOSTNAME=$(curl -s $METADATA/self/container/primary_ip)
-export MARATHON_HTTP_ADDRESS=$(curl -s $METADATA/self/container/primary_ip)
-# export MARATHON_HTTPS_ADDRESS=
 
 PRINCIPAL=${PRINCIPAL:-root}
 
