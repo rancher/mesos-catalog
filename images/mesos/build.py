@@ -5,7 +5,6 @@ from os import remove
 
 user='llparse'
 versions=['latest', '0.24.1', '0.24.1-centos', '0.24.1-centos-7', '0.24.1-ubuntu', '0.24.1-ubuntu-14.04']
-#versions=['0.24.1-ubuntu-14.04']
 template_folders=['master', 'slave']
 
 env = Environment(loader=FileSystemLoader('.'))
