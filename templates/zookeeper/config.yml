@@ -1,6 +1,7 @@
-name: Apache Zookeeper
+name: Zookeeper
 description: |
-  (Experimental) Zookeeper cluster
+  Maintain configuration information, naming, provide 
+  distributed synchronization and group services
 version: 3.4.6-rancher1
 category: Clustering
 maintainer: "Raul Sanchez <rawmind@gmail.com>"
