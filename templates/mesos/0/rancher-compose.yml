@@ -64,5 +64,12 @@
     default: 1
 master:
   scale: ${MESOS_MASTERS}
+  health_check:
+    port: 5050
+    interval: 5000
+    unhealthy_threshold: 2
+    healthy_threshold: 2
+    request_line: '/metrics/snapshot'
+    response_timeout: 5000
 slave:
   scale: ${MESOS_SLAVES}
