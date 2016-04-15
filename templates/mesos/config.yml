@@ -3,6 +3,6 @@ description: |
   Abstract resources away from machines (physical or virtual),
   enabling fault-tolerant and elastic distributed systems
 version: v1
-category: System
+category: Orchestration
 maintainer: James Oliver <joliver@rancher.com>
 minimum_rancher_version: v1.0.0

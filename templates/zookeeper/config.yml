@@ -3,7 +3,7 @@ description: |
   Maintain configuration information, naming, provide 
   distributed synchronization and group services
 version: 3.4.6-rancher1
-category: System
+category: Clustering
 maintainer: "Raul Sanchez <rawmind@gmail.com>"
 minimum_rancher_version: v0.56.0
 license: 
