@@ -25,7 +25,7 @@
     type: service
   - variable: ZK_MESOS_CHROOT
     description: Zookeeper path for master coordination
-    label: Override Mesos Master chroot (default: derived from Mesos Service)
+    label: Override Mesos Master chroot (default is derived from Mesos Service)
     required: false
     type: string
   - variable: ZK_MARATHON_CHROOT
