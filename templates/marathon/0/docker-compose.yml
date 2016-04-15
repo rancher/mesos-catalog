@@ -5,4 +5,4 @@ marathon:
     ZK_MESOS_CHROOT: ${ZK_MESOS_CHROOT}
     ZK_MARATHON_CHROOT: ${ZK_MARATHON_CHROOT}
   ports:
-  - "7070:8080"
+  - "8080:8080"
