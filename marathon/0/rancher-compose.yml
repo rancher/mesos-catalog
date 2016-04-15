@@ -1,0 +1,38 @@
+.catalog:
+  name: Marathon
+  version: v1
+  description: |
+    A container orchestration platform for Mesos and DCOS
+  questions:
+  - variable: VERSION
+    label: Marathon Version
+    description: Select the version of Marathon to run.
+    required: true
+    type: enum
+    default: 0.11.0-centos-7
+    options:
+    - latest
+    - 0.11.0
+    - 0.11.0-centos
+    - 0.11.0-centos-7
+    - 0.11.0-ubuntu
+    - 0.11.0-ubuntu-15.04
+  - variable: ZK_SERVICE
+    description: Choose the Zookeeper service to use.
+    label: Zookeeper Service
+    required: true
+    type: service
+  - variable: ZK_MESOS_CHROOT
+    description: Zookeeper path for master coordination
+    label: Zookeeper Mesos Chroot
+    required: true
+    type: string
+    default: mesos
+  - variable: ZK_MARATHON_CHROOT
+    description: Zookeeper path for marathon coordination
+    label: Zookeeper Marathon Chroot
+    required: true
+    type: string
+    default: marathon
+marathon:
+  scale: 1
