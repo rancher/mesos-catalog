@@ -5,7 +5,7 @@ METADATA_VERSION=2015-12-19
 METADATA=$METADATA_HOST/$METADATA_VERSION
 
 ZK_SERVICE=${ZK_SERVICE:-"mesos/zk"}
-ZK_CHROOT=${ZK_CHROOT:-"mesos"}
+ZK_CHROOT=${ZK_CHROOT:-"/mesos"}
 
 # Resolve MESOS_ZK from metadata
 IFS='/' read -ra ZK <<< "$ZK_SERVICE"
@@ -24,7 +24,7 @@ for container in $(curl -s $METADATA/stacks/${ZK[0]}/services/${ZK[1]}/container
     MESOS_ZK=$MESOS_ZK,$ip:2181
   fi
 done
-export MESOS_MASTER=${MESOS_ZK}/${ZK_CHROOT}
+export MESOS_MASTER=${MESOS_ZK}${ZK_CHROOT}
 export MESOS_IP=$(curl -s $METADATA/self/container/primary_ip)
 export MESOS_HOSTNAME=$(curl -s $METADATA/self/container/name)
 

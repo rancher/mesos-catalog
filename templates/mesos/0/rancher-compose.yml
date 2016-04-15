@@ -16,12 +16,6 @@
     label: Zookeeper Service
     required: true
     type: service
-  - variable: ZK_CHROOT
-    description: Zookeeper path for master coordination
-    label: Zookeeper Chroot
-    required: true
-    type: string
-    default: mesos
   - variable: MESOS_ZK_SESSION_TIMEOUT
     description: You may need to increase this in virtualized environments or else zk requests will fail.
     label: Zookeeper Session Timeout
