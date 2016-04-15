@@ -17,7 +17,7 @@
     required: true
     type: service
   - variable: ZK_CHROOT
-    description: Specify a custom Mesos Master coordination path (default is /${stack-name})
+    description: Specify a custom Mesos Master coordination path (default is derived from the stack name)
     label: Master Zookeeper Path
     required: false
     type: string
