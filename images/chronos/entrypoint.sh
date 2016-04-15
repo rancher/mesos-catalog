@@ -6,6 +6,7 @@ METADATA=$METADATA_HOST/$METADATA_VERSION
 function metadata { echo $(curl -s $METADATA/$1); }
 ###############################################################################
 
+PRINCIPAL=${PRINCIPAL:-root}
 ZK_SERVICE=${ZK_SERVICE:-"mesos/zk"}
 MESOS_SERVICE=${MESOS_SERVICE:="mesos/mesos"}
 
@@ -59,14 +60,14 @@ for k in `set | grep ^CHRONOS_ | cut -d= -f1`; do
     CMD="$CMD --`echo $k | cut -d_ -f2- | tr '[:upper:]' '[:lower:]'` $v"
 done
 
-# authentication
-PRINCIPAL=${PRINCIPAL:-root}
+### dunno how to use this ###
 if [ -n "$SECRET" ]; then
     touch /tmp/secret
     chmod 600 /tmp/secret
     echo -n "$SECRET" > /tmp/secret
     CMD="$CMD --mesos_authentication_principal $PRINCIPAL --mesos_authentication_secret_file /tmp/secret"
 fi
+### / dunno how to use this ###
 
 echo $CMD
 

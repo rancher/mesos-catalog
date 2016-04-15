@@ -1,5 +1,8 @@
 chronos:
-  image: mesoscloud/chronos:2.4.0-centos-7
+  image: llparse/chronos:${VERSION}
   environment:
-    CHRONOS_HTTP_PORT: ${CHRONOS_HTTP_PORT}
+    MESOS_SERVICE: ${MESOS_SERVICE}
     ZK_SERVICE: ${ZK_SERVICE}
+    CHRONOS_HTTP_PORT: ${CHRONOS_HTTP_PORT}
+  ports:
+  - "${CHRONOS_HTTP_PORT}:${CHRONOS_HTTP_PORT}"

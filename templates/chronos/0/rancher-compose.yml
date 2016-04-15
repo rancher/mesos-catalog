@@ -18,6 +18,12 @@
     label: Zookeeper Service
     required: true
     type: service
+  # a stack type would be nice
+  - variable: MESOS_SERVICE
+    description: Choose the Mesos stack to use.
+    label: Mesos Stack
+    required: true
+    type: service
   - variable: CHRONOS_HTTP_PORT
     description: Port to expose Chronos on.
     label: Chronos Port

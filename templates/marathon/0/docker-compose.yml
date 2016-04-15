@@ -1,5 +1,5 @@
 marathon:
-  image: llparse/marathon:0.11.0-centos-7
+  image: llparse/marathon:${VERSION}
   environment:
     MESOS_SERVICE: ${MESOS_SERVICE}
     ZK_SERVICE: ${ZK_SERVICE}
