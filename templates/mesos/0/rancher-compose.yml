@@ -75,7 +75,7 @@ master:
 slave:
   scale: ${MESOS_SLAVES}
   health_check:
-    port: 5051
+    port: ${SLAVE_PORT}
     interval: 5000
     unhealthy_threshold: 2
     healthy_threshold: 2
