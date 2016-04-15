@@ -4,5 +4,6 @@ FROM mesoscloud/mesos-{{ type }}:{{ version }}
 RUN apt-get install -y curl
 {% endif %}
 
-ADD entrypoint.sh /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
+ADD {{ entrypoint }} /
+
+ENTRYPOINT ["/{{ entrypoint }}"]

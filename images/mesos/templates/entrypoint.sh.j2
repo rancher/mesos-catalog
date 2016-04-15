@@ -1,16 +1,15 @@
 #!/bin/bash -ex
-
-MASTER_PORT=${MASTER_PORT:-"5050"}
-ZK_SESSION_TIMEOUT=${ZK_SESSION_TIMEOUT:-"10secs"}
-PRINCIPAL=${PRINCIPAL:-root}
-
+###############################################################################
 METADATA_HOST=rancher-metadata.rancher.internal
 METADATA_VERSION=2015-12-19
 METADATA=$METADATA_HOST/$METADATA_VERSION
+function metadata { echo $(curl -s $METADATA/$1); }
+###############################################################################
 
-function metadata {
-  echo $(curl -s $METADATA/$1)
-}
+MESOS_CLUSTER=${MESOS_CLUSTER:-"$(metadata self/stack/name)"}
+MASTER_PORT=${MASTER_PORT:-"5050"}
+ZK_SESSION_TIMEOUT=${ZK_SESSION_TIMEOUT:-"10secs"}
+PRINCIPAL=${PRINCIPAL:-root}
 
 function zk_service {
   ZK_SERVICE=${ZK_SERVICE:-"mesos/zk"}
@@ -51,6 +50,7 @@ export MESOS_MASTER=$(zk_string)
 export MESOS_IP=$(metadata self/container/primary_ip)
 export MESOS_HOSTNAME=$(metadata self/host/agent_ip)
 
+### dunno how to use this ###
 if [ -n "$SECRET" ]; then
     {% if type == 'master' %}
     export MESOS_AUTHENTICATE=true
@@ -61,6 +61,7 @@ if [ -n "$SECRET" ]; then
     echo -n "$PRINCIPAL $SECRET" > /tmp/credential
     export MESOS_CREDENTIAL=/tmp/credential
 fi
+### / dunno how to use this ###
 
 {% if type == 'master' %}
 /usr/sbin/mesos-master \
