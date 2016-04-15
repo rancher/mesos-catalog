@@ -1,36 +1,50 @@
 #!/bin/bash -ex
 
+MASTER_PORT=${MASTER_PORT:-"5050"}
+ZK_SESSION_TIMEOUT=${ZK_SESSION_TIMEOUT:-"10secs"}
+PRINCIPAL=${PRINCIPAL:-root}
+
 METADATA_HOST=rancher-metadata.rancher.internal
 METADATA_VERSION=2015-12-19
 METADATA=$METADATA_HOST/$METADATA_VERSION
 
-MASTER_PORT=${MASTER_PORT:-"5050"}
-ZK_SERVICE=${ZK_SERVICE:-"mesos/zk"}
-ZK_CHROOT=${ZK_CHROOT:-"/mesos"}
-ZK_SESSION_TIMEOUT=${ZK_SESSION_TIMEOUT:-"10secs"}
+function metadata {
+  echo $(curl -s $METADATA/$1)
+}
 
-# Resolve MESOS_ZK from metadata
-IFS='/' read -ra ZK <<< "$ZK_SERVICE"
-containers=$(curl -s $METADATA/stacks/${ZK[0]}/services/${ZK[1]}/containers)
-if [ "$containers" == "Not found" ]; then
-  echo "A zookeeper ensemble is required, but '$MESOS_ZK' stack/service was not found."
-  sleep 1
-  exit 1
+function zk_service {
+  ZK_SERVICE=${ZK_SERVICE:-"mesos/zk"}
+  IFS='/' read -ra ZK <<< "$ZK_SERVICE"
+  echo $(metadata stacks/${ZK[0]}/services/${ZK[1]}/$1)
+}
+
+if [ "$(zk_service containers)" == "Not found" ]; then
+  echo "A zookeeper ensemble is required, but '$ZK_SERVICE' was not found."
+  sleep 1 && exit 1
 fi
-for container in $(curl -s $METADATA/stacks/${ZK[0]}/services/${ZK[1]}/containers); do
-  IFS='=' read -ra c <<< "$container"
-  ip=$(curl -s $METADATA/stacks/${ZK[0]}/services/${ZK[1]}/containers/${c[1]}/primary_ip)
-  if [ "$MESOS_ZK" == "" ]; then
-    MESOS_ZK=zk://$ip:2181
-  else
-    MESOS_ZK=$MESOS_ZK,$ip:2181
-  fi
-done
-export MESOS_ZK=${MESOS_ZK}${ZK_CHROOT}
-export MESOS_IP=$(curl -s $METADATA/self/container/primary_ip)
-export MESOS_HOSTNAME=$(curl -s $METADATA/self/host/agent_ip)
 
-PRINCIPAL=${PRINCIPAL:-root}
+function zk_container_primary_ip {
+  IFS='=' read -ra c <<< "$1"
+  echo $(zk_service containers/${c[1]}/primary_ip)  
+}
+
+function zk_string {
+  ZK_CHROOT=${ZK_CHROOT:-"/$(metadata self/stack/name)"}
+  ZK_STRING=
+  for container in $(zk_service containers); do
+    ip=$(zk_container_primary_ip $container)
+    if [ "$ZK_STRING" == "" ]; then
+      ZK_STRING=zk://$ip:2181
+    else
+      ZK_STRING=$ZK_STRING,$ip:2181
+    fi
+  done
+  echo ${ZK_STRING}/${ZK_CHROOT}
+}
+
+export MESOS_ZK=$(zk_string)
+export MESOS_IP=$(metadata self/container/primary_ip)
+export MESOS_HOSTNAME=$(metadata self/host/agent_ip)
 
 if [ -n "$SECRET" ]; then
     export MESOS_AUTHENTICATE=true

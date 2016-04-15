@@ -17,11 +17,10 @@
     required: true
     type: service
   - variable: ZK_CHROOT
-    description: Zookeeper path for master coordination
-    label: Zookeeper Chroot
-    required: true
+    description: Specify a custom Mesos Master coordination path (default is '/stack-name')
+    label: Master Zookeeper Path
+    required: false
     type: string
-    default: /mesos
   - variable: MESOS_ZK_SESSION_TIMEOUT
     description: You may need to increase this in virtualized environments or else zk requests will fail.
     label: Zookeeper Session Timeout
@@ -69,3 +68,10 @@ master:
     response_timeout: 2000
 slave:
   scale: ${MESOS_SLAVES}
+  health_check:
+    port: 5051
+    interval: 5000
+    unhealthy_threshold: 2
+    healthy_threshold: 2
+    request_line: '/'
+    response_timeout: 3000
