@@ -25,5 +25,3 @@ slave:
   volumes:
   - /var/run/docker.sock:/var/run/docker.sock
   privileged: true
-#marathon:
-#  image: mesoscloud/marathon:${VERSION}
