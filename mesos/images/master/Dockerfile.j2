@@ -1,0 +1,8 @@
+FROM mesoscloud/mesos-master:{{ version }}
+
+{% if 'ubuntu' in version %}
+RUN apt-get install -y curl
+{% endif %}
+
+ADD entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]

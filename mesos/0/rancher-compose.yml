@@ -1,0 +1,68 @@
+.catalog:
+  name: Mesos
+  version: v1
+  questions:
+  - variable: VERSION
+    label: Mesos Version
+    description: Select the version of Mesos to run.
+    required: true
+    type: enum
+    default: 0.24.1-centos-7
+    options:
+    - latest
+    - 0.24.1
+    - 0.24.1-centos
+    - 0.24.1-centos-7
+    - 0.24.1-ubuntu
+    - 0.24.1-ubuntu-14.04
+  - variable: ZK_SERVICE
+    description: Choose the Zookeeper service to use.
+    label: Zookeeper Service
+    required: true
+    type: service
+  - variable: ZK_CHROOT
+    description: Zookeeper path for master coordination
+    label: Zookeeper Chroot
+    required: true
+    type: string
+    default: mesos
+  - variable: MESOS_ZK_SESSION_TIMEOUT
+    description: You may need to increase this in virtualized environments or else zk requests will fail.
+    label: Zookeeper Session Timeout
+    required: true
+    type: string
+    default: 10secs
+  - variable: MESOS_CLUSTER
+    description: Mesos cluster name to appear in the Master UI.
+    label: Cluster Name
+    required: true
+    type: string
+    default: rancher
+  - variable: MESOS_QUORUM
+    description: Mesos quorum
+    label: Mesos Quorum
+    required: true
+    type: int
+    default: 1
+  - variable: MESOS_MASTERS
+    description: Number of Mesos Master nodes to run.
+    label: Mesos Masters
+    required: true
+    type: int
+    default: 1
+  - variable: MASTER_PORT
+    description: Port to expose Mesos masters on.
+    label: Master Port
+    required: true
+    type: int
+    default: 5050
+  - variable: MESOS_SLAVES
+    description: Number of Mesos Slaves to run.
+    label: Mesos Slaves
+    required: true
+    type: int
+    default: 1
+master:
+  scale: ${MESOS_MASTERS}
+slave:
+  scale: ${MESOS_SLAVES}

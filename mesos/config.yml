@@ -1,0 +1,6 @@
+name: Mesos
+description: |
+  Apache Mesos abstracts CPU, memory, storage, and other compute resources away from machines (physical or virtual),
+  enabling fault-tolerant and elastic distributed systems
+version: v1
+maintainer: James Oliver <joliver@rancher.com>
