@@ -40,7 +40,7 @@ function zk_string {
 
 function mesos_stack {
   IFS='/' read -ra X <<< "$MESOS_SERVICE"
-  echo ${X[1]}
+  echo ${X[0]}
 }
 
 zk=$(zk_string)
