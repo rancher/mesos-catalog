@@ -39,7 +39,7 @@ function zk_string {
       ZK_STRING=$ZK_STRING,$ip:2181
     fi
   done
-  echo ${ZK_STRING}/${ZK_CHROOT}
+  echo ${ZK_STRING}${ZK_CHROOT}
 }
 
 export MESOS_ZK=$(zk_string)
