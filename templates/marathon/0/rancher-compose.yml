@@ -11,28 +11,41 @@
     type: enum
     default: 0.11.0-centos-7
     options:
-    - latest
-    - 0.11.0
-    - 0.11.0-centos
     - 0.11.0-centos-7
-    - 0.11.0-ubuntu
-    - 0.11.0-ubuntu-15.04
+#    - 0.11.0-ubuntu-15.04
   - variable: ZK_SERVICE
     description: Choose the Zookeeper service to use.
     label: Zookeeper Service
     required: true
     type: service
+  - variable: MESOS_SERVICE
+    description: Choose the Mesos service to use.
+    label: Mesos Service
+    required: true
+    type: service
   - variable: ZK_MESOS_CHROOT
     description: Zookeeper path for master coordination
-    label: Zookeeper Mesos Chroot
-    required: true
+    label: Override Mesos Master chroot (default: derived from Mesos Service)
+    required: false
     type: string
-    default: mesos
   - variable: ZK_MARATHON_CHROOT
     description: Zookeeper path for marathon coordination
     label: Zookeeper Marathon Chroot
     required: true
     type: string
     default: marathon
+  - variable: MARATHON_PORT
+    description: Port to expose Marathon on.
+    label: Marathon Port
+    required: true
+    type: int
+    default: 8080
 marathon:
   scale: 1
+  health_check:
+    port: ${MARATHON_PORT}
+    interval: 5000
+    unhealthy_threshold: 2
+    healthy_threshold: 2
+    request_line: '/'
+    response_timeout: 3000

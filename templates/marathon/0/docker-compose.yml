@@ -1,8 +1,9 @@
 marathon:
   image: llparse/marathon:0.11.0-centos-7
   environment:
+    MESOS_SERVICE: ${MESOS_SERVICE}
     ZK_SERVICE: ${ZK_SERVICE}
     ZK_MESOS_CHROOT: ${ZK_MESOS_CHROOT}
     ZK_MARATHON_CHROOT: ${ZK_MARATHON_CHROOT}
   ports:
-  - "8080:8080"
+  - "${MARATHON_PORT}:${MARATHON_PORT}"
