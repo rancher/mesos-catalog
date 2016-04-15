@@ -3,4 +3,6 @@ description: |
   Apache Mesos abstracts CPU, memory, storage, and other compute resources away from machines (physical or virtual),
   enabling fault-tolerant and elastic distributed systems
 version: v1
+category: Orchestration
 maintainer: James Oliver <joliver@rancher.com>
+minimum_rancher_version: v1.0.0

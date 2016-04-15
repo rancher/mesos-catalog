@@ -2,6 +2,6 @@ name: Marathon
 description: |
   A container orchestration platform for Mesos and DCOS
 version: v1
-category: MesosFrameworks
+category: Orchestration
 maintainer: James Oliver <joliver@rancher.com>
 minimum_rancher_version: v1.0.0
