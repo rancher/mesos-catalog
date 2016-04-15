@@ -35,17 +35,17 @@
     type: string
     default: rancher
   - variable: MESOS_QUORUM
-    description: Mesos quorum
-    label: Mesos Quorum
+    description: Mesos Master quorum count is computed as floor( MESOS_MASTERS / 2 ) 
+    label: Mesos Master Quorum
     required: true
     type: int
-    default: 1
+    default: 2
   - variable: MESOS_MASTERS
     description: Number of Mesos Master nodes to run.
     label: Mesos Masters
     required: true
     type: int
-    default: 1
+    default: 3
   - variable: MASTER_PORT
     description: Port to expose Mesos masters on.
     label: Master Port
@@ -57,7 +57,7 @@
     label: Mesos Slaves
     required: true
     type: int
-    default: 1
+    default: 3
 master:
   scale: ${MESOS_MASTERS}
   health_check:
