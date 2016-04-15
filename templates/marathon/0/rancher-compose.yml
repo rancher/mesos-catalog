@@ -18,22 +18,12 @@
     label: Zookeeper Service
     required: true
     type: service
+  # a stack type would be nice
   - variable: MESOS_SERVICE
-    description: Choose the Mesos service to use.
-    label: Mesos Service
+    description: Choose the Mesos stack to use.
+    label: Mesos Stack
     required: true
     type: service
-  - variable: ZK_MESOS_CHROOT
-    description: Zookeeper path for master coordination
-    label: Override Mesos Master chroot (default is derived from Mesos Service)
-    required: false
-    type: string
-  - variable: ZK_MARATHON_CHROOT
-    description: Zookeeper path for marathon coordination
-    label: Zookeeper Marathon Chroot
-    required: true
-    type: string
-    default: marathon
   - variable: MARATHON_HTTP_PORT
     description: Port to expose Marathon on.
     label: Marathon Port
