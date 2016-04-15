@@ -63,7 +63,7 @@ if [ -n "$SECRET" ]; then
 fi
 ### / dunno how to use this ###
 
-/usr/sbin/mesos-{{ type }}
+/usr/sbin/mesos-{{ type }} \
 {% if type == 'master' %}
   --zk_session_timeout=${ZK_SESSION_TIMEOUT} \
   --port=${MASTER_PORT} \
