@@ -4,19 +4,28 @@ from subprocess import call
 from os import remove
 
 user='llparse'
-versions=['0.24.1-centos-7', '0.24.1-ubuntu-14.04']
-template_folders=['master', 'slave']
+#versions=['0.24.1-centos-7', '0.24.1-ubuntu-14.04']
+versions=['0.24.1-centos-7']
+types=['master', 'slave']
 
 env = Environment(loader=FileSystemLoader('.'))
-
 for version in versions:
-  for template_folder in template_folders:
-    template_path='{0}/Dockerfile.j2'.format(template_folder)
-    template_out='{0}/Dockerfile.{0}.{1}'.format(template_folder, version)
-    image='{0}/mesos-{1}:{2}'.format(user, template_folder, version)
-    with open(template_out, 'w') as f:
-      template = env.get_template(template_path)
-      f.write(template.render(version=version))
-    call(['docker', 'build', '-f', template_out, '-t', image, template_folder])
+  for t in types:
+    image='{0}/mesos-{1}:{2}'.format(user, t, version)
+    dockerfile='Dockerfile.{0}.{1}'.format(t, version)
+    entrypoint='entrypoint.sh'
+
+    with open(dockerfile, 'w') as f:
+      template = env.get_template('Dockerfile.j2')
+      f.write(template.render(version=version, type=t))
+    
+    with open(entrypoint, 'w') as f:
+      template = env.get_template('entrypoint.sh.j2')
+      f.write(template.render(version=version, type=t))
+    
+    call(['chmod', '+x', entrypoint])
+    call(['docker', 'build', '-f', dockerfile, '-t', image, '.'])
     call(['docker', 'push', image])
-    remove(template_out)
+
+    remove(dockerfile)
+    remove(entrypoint)

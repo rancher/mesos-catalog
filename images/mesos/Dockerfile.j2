@@ -1,4 +1,4 @@
-FROM mesoscloud/mesos-slave:{{ version }}
+FROM mesoscloud/mesos-{{ type }}:{{ version }}
 
 {% if 'ubuntu' in version %}
 RUN apt-get install -y curl
@@ -6,4 +6,3 @@ RUN apt-get install -y curl
 
 ADD entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
-EXPOSE 5051/tcp
