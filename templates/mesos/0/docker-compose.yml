@@ -13,6 +13,8 @@ master:
     mesos: master
     io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
     io.rancher.scheduler.affinity:container_label_soft_ne: mesos=slave
+  volumes:
+  - /data
 slave:
   image: llparse/mesos-slave:${VERSION}
   environment:
@@ -24,4 +26,5 @@ slave:
     io.rancher.scheduler.affinity:container_label_soft_ne: mesos=master
   volumes:
   - /var/run/docker.sock:/var/run/docker.sock
+  - /data
   privileged: true
