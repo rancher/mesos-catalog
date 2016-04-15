@@ -4,7 +4,7 @@ from subprocess import call
 from os import remove
 
 user='llparse'
-versions=['latest', '0.24.1', '0.24.1-centos', '0.24.1-centos-7', '0.24.1-ubuntu', '0.24.1-ubuntu-14.04']
+versions=['0.24.1-centos-7', '0.24.1-ubuntu-14.04']
 template_folders=['master', 'slave']
 
 env = Environment(loader=FileSystemLoader('.'))
@@ -17,7 +17,6 @@ for version in versions:
     with open(template_out, 'w') as f:
       template = env.get_template(template_path)
       f.write(template.render(version=version))
-    # TODO concurrency
     call(['docker', 'build', '-f', template_out, '-t', image, template_folder])
     call(['docker', 'push', image])
     remove(template_out)

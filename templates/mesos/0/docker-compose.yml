@@ -3,11 +3,12 @@ master:
   environment:
     MESOS_CLUSTER: ${MESOS_CLUSTER}
     MESOS_QUORUM: ${MESOS_QUORUM}
+    MASTER_PORT: ${MASTER_PORT}
     ZK_SERVICE: ${ZK_SERVICE}
     ZK_CHROOT: ${ZK_CHROOT}
     ZK_SESSION_TIMEOUT: ${ZK_SESSION_TIMEOUT}
   ports:
-  - "${MASTER_PORT}:5050"
+  - "${MASTER_PORT}:${MASTER_PORT}"
   labels:
     mesos: master
     io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}

@@ -4,6 +4,7 @@ METADATA_HOST=rancher-metadata.rancher.internal
 METADATA_VERSION=2015-12-19
 METADATA=$METADATA_HOST/$METADATA_VERSION
 
+MASTER_PORT=${MASTER_PORT:-"5050"}
 ZK_SERVICE=${ZK_SERVICE:-"mesos/zk"}
 ZK_CHROOT=${ZK_CHROOT:-"mesos"}
 ZK_SESSION_TIMEOUT=${ZK_SESSION_TIMEOUT:-"10secs"}
@@ -40,7 +41,7 @@ if [ -n "$SECRET" ]; then
     export MESOS_CREDENTIAL=/tmp/credential
 fi
 
-sleep 1
 /usr/sbin/mesos-master \
   --zk_session_timeout=${ZK_SESSION_TIMEOUT} \
+  --port=${MASTER_PORT} \
   "$@"

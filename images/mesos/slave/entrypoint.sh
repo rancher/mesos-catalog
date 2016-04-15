@@ -37,5 +37,4 @@ if [ -n "$SECRET" ]; then
     export MESOS_CREDENTIAL=/tmp/credential
 fi
 
-sleep 1
 /usr/sbin/mesos-slave "$@"

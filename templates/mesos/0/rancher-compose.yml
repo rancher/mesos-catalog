@@ -9,11 +9,7 @@
     type: enum
     default: 0.24.1-centos-7
     options:
-    - latest
-    - 0.24.1
-    - 0.24.1-centos
     - 0.24.1-centos-7
-    - 0.24.1-ubuntu
     - 0.24.1-ubuntu-14.04
   - variable: ZK_SERVICE
     description: Choose the Zookeeper service to use.
@@ -65,11 +61,11 @@
 master:
   scale: ${MESOS_MASTERS}
   health_check:
-    port: 5050
-    interval: 5000
+    port: ${MASTER_PORT}
+    interval: 3000
     unhealthy_threshold: 2
     healthy_threshold: 2
     request_line: '/metrics/snapshot'
-    response_timeout: 5000
+    response_timeout: 2000
 slave:
   scale: ${MESOS_SLAVES}
