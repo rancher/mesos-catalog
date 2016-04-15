@@ -18,8 +18,6 @@ slave:
   environment:
     ZK_SERVICE: ${ZK_SERVICE}
     ZK_CHROOT: ${ZK_CHROOT}
-  ports:
-  - "${SLAVE_PORT}"
   labels:
     mesos: slave
     io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
