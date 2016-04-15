@@ -1,0 +1,5 @@
+chronos:
+  image: mesoscloud/chronos:2.4.0-centos-7
+  environment:
+    CHRONOS_HTTP_PORT: ${CHRONOS_HTTP_PORT}
+    ZK_SERVICE: ${ZK_SERVICE}
