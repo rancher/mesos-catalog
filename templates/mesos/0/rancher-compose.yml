@@ -57,6 +57,12 @@
     required: true
     type: int
     default: 3
+  - variable: SLAVE_PORT
+    description: Port to expose Mesos slaves on.
+    label: Slave Port
+    required: true
+    type: int
+    default: 5051
 master:
   scale: ${MESOS_MASTERS}
   health_check:
