@@ -1,0 +1,7 @@
+aurora:
+  image: llparse/aurora:${VERSION}
+  environment:
+    ZK_SERVICE: ${ZK_SERVICE}
+    AURORA_HTTP_PORT: ${AURORA_HTTP_PORT}
+  ports:
+  - "${AURORA_HTTP_PORT}:${AURORA_HTTP_PORT}"
