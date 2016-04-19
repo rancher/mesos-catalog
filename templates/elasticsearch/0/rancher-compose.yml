@@ -27,7 +27,7 @@
     label: Scheduler Port
     required: true
     type: int
-    default: 8080
+    default: 31100
 scheduler:
   scale: 1
   health_check:
