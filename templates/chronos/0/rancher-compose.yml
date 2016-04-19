@@ -2,7 +2,7 @@
   name: Chronos
   version: v1
   description: |
-    Distributed, fault-tolerant cron replacement
+    Distributed, fault-tolerant cron
   questions:
   - variable: VERSION
     label: Chronos Version
