@@ -5,7 +5,6 @@ master:
     MESOS_QUORUM: ${MESOS_QUORUM}
     MASTER_PORT: ${MASTER_PORT}
     ZK_SERVICE: ${ZK_SERVICE}
-    ZK_CHROOT: ${ZK_CHROOT}
     ZK_SESSION_TIMEOUT: ${ZK_SESSION_TIMEOUT}
   ports:
   - "${MASTER_PORT}:${MASTER_PORT}"
@@ -20,7 +19,6 @@ slave:
   environment:
     SLAVE_PORT: ${SLAVE_PORT}
     ZK_SERVICE: ${ZK_SERVICE}
-    ZK_CHROOT: ${ZK_CHROOT}
   ports:
   - "${SLAVE_PORT}:${SLAVE_PORT}"
   labels:
