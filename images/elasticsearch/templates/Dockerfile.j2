@@ -1,4 +1,3 @@
-{% if 'ubuntu' in version %}
 FROM ubuntu:14.04
 
 RUN echo "deb http://ppa.launchpad.net/openjdk-r/ppa/ubuntu trusty main" > /etc/apt/sources.list.d/openjdk.list && \
@@ -17,13 +16,11 @@ RUN echo "deb http://repos.mesosphere.io/ubuntu/ trusty main" > /etc/apt/sources
 RUN \
   apt-get -y update && \
   apt-get install -y curl
-{% endif %}
 
-{% if type == 'scheduler' %}
 RUN \
   cd / && \
-  curl -LO https://github.com/mesos/elasticsearch/releases/download/1.0.1/mesos-elasticsearch-scheduler-1.0.1.jar
-{% endif %}
+  curl -L https://github.com/mesos/elasticsearch/releases/download/1.0.1/mesos-elasticsearch-scheduler-1.0.1.jar \
+    -o /mesos-elasticsearch-scheduler.jar
 
 ADD entrypoint.sh /
 

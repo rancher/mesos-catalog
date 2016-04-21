@@ -5,7 +5,7 @@ from os import remove
 
 user='llparse'
 versions=['1.0.1-ubuntu-14.04']
-types=['scheduler', 'executor']
+types=['scheduler']
 
 env = Environment(
   loader=FileSystemLoader('./templates'),
