@@ -4,7 +4,7 @@ from subprocess import call
 from os import remove
 
 user='llparse'
-versions=['0.11.0-centos-7', '0.11.0-ubuntu-15.04']
+versions=['1.1.1-centos-7', '1.1.1-ubuntu-15.04']
 
 env = Environment(
   loader=FileSystemLoader('./templates'),
@@ -16,7 +16,7 @@ for version in versions:
 
   with open(dockerfile, 'w') as f:
     template = env.get_template('Dockerfile.j2')
-    f.write(template.render(version=version))
+    f.write(template.render(user=user, version=version))
     
   call(['docker', 'build', '-f', dockerfile, '-t', image, '.'])
   call(['docker', 'push', image])

@@ -16,7 +16,7 @@ for version in versions:
 
   with open(dockerfile, 'w') as f:
     template = env.get_template('Dockerfile.j2')
-    f.write(template.render(version=version))
+    f.write(template.render(user=user, version=version))
     
   call(['docker', 'build', '-f', dockerfile, '-t', image, '.'])
   call(['docker', 'push', image])

@@ -1,0 +1,25 @@
+{% if 'centos' in version %}
+FROM centos:7
+
+RUN \
+  rpm -i http://repos.mesosphere.io/el/7/noarch/RPMS/mesosphere-el-repo-7-1.noarch.rpm && \
+  yum -y install mesos-0.24.1
+{% elif 'ubuntu-14.04' in version %}
+FROM ubuntu:14.04
+
+RUN \
+  apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF && \
+  echo deb http://repos.mesosphere.io/ubuntu trusty main > /etc/apt/sources.list.d/mesosphere.list && \
+  apt-get update && \
+  apt-get -y install mesos=0.24.1-0.2.35.ubuntu1404 curl && \
+  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+{% elif 'ubuntu-15.04' in version %}
+FROM ubuntu:15.04
+
+RUN \
+  apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF && \
+  echo deb http://repos.mesosphere.io/ubuntu vivid main > /etc/apt/sources.list.d/mesosphere.list && \
+  apt-get update && \
+  apt-get -y install mesos=0.24.1-0.2.35.ubuntu1504 curl && \
+  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+{% endif %}

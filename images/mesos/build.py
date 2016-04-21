@@ -20,6 +20,7 @@ for version in versions:
     with open(dockerfile, 'w') as f:
       template = env.get_template('Dockerfile.j2')
       f.write(template.render(
+        user=user,
         version=version, 
         type=t,
         entrypoint=entrypoint))
@@ -27,6 +28,7 @@ for version in versions:
     with open(entrypoint, 'w') as f:
       template = env.get_template('entrypoint.sh.j2')
       f.write(template.render(
+        user=user,
         version=version, 
         type=t, 
         entrypoint=entrypoint))

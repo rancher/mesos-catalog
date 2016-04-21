@@ -1,16 +1,4 @@
-{% if 'centos' in version %}
-FROM centos:7
-
-RUN rpm -i http://repos.mesosphere.io/el/7/noarch/RPMS/mesosphere-el-repo-7-1.noarch.rpm && \
-yum -y install mesos-0.24.1
-{% elif 'ubuntu' in version %}
-FROM ubuntu:14.04
-
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF && \
-echo deb http://repos.mesosphere.io/ubuntu trusty main > /etc/apt/sources.list.d/mesosphere.list && \
-apt-get update && \
-apt-get -y install mesos=0.24.1-0.2.35.ubuntu1404 curl
-{% endif %}
+FROM {{ user }}/mesos-base:{{ version }}
 
 {% if type == 'slave' %}
 RUN curl -fLsS https://get.docker.com/ | sh
