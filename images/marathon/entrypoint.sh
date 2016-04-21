@@ -46,7 +46,7 @@ function mesos_stack {
 zk=$(zk_string)
 export MARATHON_MASTER=$zk/$(mesos_stack)
 export MARATHON_ZK=$zk/$(metadata self/stack/name)
-export MARATHON_HOSTNAME=$(metadata self/container/primary_ip)
+export MARATHON_HOSTNAME=$(metadata self/host/agent_ip)
 export MARATHON_FRAMEWORK_NAME=$(metadata self/stack/name)
 
 ### dunno how to use this ###
