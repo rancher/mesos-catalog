@@ -50,6 +50,7 @@ function zk_string {
 export CHRONOS_MASTER=$(zk_string)
 export CHRONOS_ZK_HOSTS=$(zk_hosts)
 export CHRONOS_ZK_PATH=/$(metadata self/stack/name)
+export CHRONOS_HOSTNAME=$(metadata self/host/agent_ip)
 export CHRONOS_MESOS_FRAMEWORK_NAME=$(metadata self/stack/name)
 
 CMD="chronos run_jar"
