@@ -13,6 +13,10 @@ RUN \
   curl -L https://github.com/yagniio/docker-mesos-kafka/releases/download/0.9.5.0-0.9.0.1/kafka-mesos-0.9.5.0.jar -o /kafka-mesos.jar && \
   curl -L http://archive.apache.org/dist/kafka/$KAFKA_VERSION/kafka_2.11-0.9.0.1.tgz -o /kafka_2.11-0.9.0.1.tgz
 
+RUN \
+  echo 'java -jar kafka-mesos.jar "$@" --api http://localhost:7000' > /usr/local/bin/kafka && \
+  chmod +x /usr/local/bin/kafka
+
 ADD entrypoint.sh /
 
 ENTRYPOINT ["/entrypoint.sh"]

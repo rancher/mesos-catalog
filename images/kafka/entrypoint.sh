@@ -44,11 +44,11 @@ function mesos_stack {
 }
 
 SCHEDULER_PORT=${SCHEDULER_PORT:-7000}
-API=http://$(metadata self/agent/host_ip):${SCHEDULER_PORT}
-FRAMEWORK_NAME=${FRAMEWORK_NAME:-kafka}
-MASTER=zk://${ZK}/$(mesos_stack)
+API=http://$(metadata self/host/agent_ip):${SCHEDULER_PORT}
+FRAMEWORK_NAME=$(metadata self/stack/name)
 STORAGE=zk:/$(metadata self/stack/name)-mesos
 ZK=$(zk_hosts)
+MASTER=zk://${ZK}/$(mesos_stack)
 
 java \
   -jar /kafka-mesos.jar \
