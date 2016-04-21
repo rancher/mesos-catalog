@@ -28,6 +28,12 @@
     required: true
     type: int
     default: 31100
+  - variable: NODE_COUNT
+    description: Number of Elasticsearch instances to run.
+    label: Node Count
+    required: true
+    type: int
+    default: 3
 scheduler:
   scale: 1
   health_check:
