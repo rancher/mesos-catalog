@@ -16,7 +16,7 @@
     label: Zookeeper Service
     required: true
     type: service
-  - variable: MESOS_ZK_SESSION_TIMEOUT
+  - variable: ZK_SESSION_TIMEOUT
     description: You may need to increase this in virtualized environments or else zk requests will fail.
     label: Zookeeper Session Timeout
     required: true
