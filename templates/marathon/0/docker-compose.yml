@@ -1,5 +1,5 @@
 marathon:
-  image: llparse/marathon:${VERSION}
+  image: llparse/marathon:latest
   environment:
     MESOS_SERVICE: ${MESOS_SERVICE}
     ZK_SERVICE: ${ZK_SERVICE}

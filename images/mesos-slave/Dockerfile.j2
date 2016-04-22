@@ -1,18 +1,16 @@
-FROM {{ user }}/mesos-base:{{ version }}
+FROM {{ user }}/mesos-base:latest
 
-{% if type == 'slave' %}
 RUN curl -fLsS https://get.docker.com/ | sh
 
 ENV MESOS_CONTAINERIZERS docker,mesos
 
 # https://mesosphere.github.io/marathon/docs/native-docker.html
 ENV MESOS_EXECUTOR_REGISTRATION_TIMEOUT 5mins
-{% endif %}
 
 ENV MESOS_WORK_DIR /data
 
 VOLUME /data
 
-ADD {{ entrypoint }} /
+ADD entrypoint.sh /
 
-ENTRYPOINT ["/{{ entrypoint }}"]
+ENTRYPOINT ["/entrypoint.sh"]

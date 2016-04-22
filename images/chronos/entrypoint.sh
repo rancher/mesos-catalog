@@ -53,7 +53,7 @@ export CHRONOS_ZK_PATH=/$(metadata self/stack/name)
 export CHRONOS_HOSTNAME=$(metadata self/host/agent_ip)
 export CHRONOS_MESOS_FRAMEWORK_NAME=$(metadata self/stack/name)
 
-CMD="chronos run_jar"
+CMD="java -jar /chronos.jar"
 
 # Parse environment variables
 for k in `set | grep ^CHRONOS_ | cut -d= -f1`; do

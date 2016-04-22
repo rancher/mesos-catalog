@@ -4,14 +4,6 @@
   description: |
     A high-throughput distributed messaging system
   questions:
-  - variable: VERSION
-    label: Kafka Version
-    description: Select the version of Kafka scheduler to run.
-    required: true
-    type: enum
-    default: 0.9.5.0-ubuntu-14.04
-    options:
-    - 0.9.5.0-ubuntu-14.04
   - variable: ZK_SERVICE
     description: Choose the Zookeeper service to use.
     label: Zookeeper Service

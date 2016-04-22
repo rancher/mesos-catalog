@@ -1,0 +1,9 @@
+FROM {{ user }}/mesos-base:latest
+
+ENV MESOS_WORK_DIR /data
+
+VOLUME /data
+
+ADD entrypoint.sh /
+
+ENTRYPOINT ["/entrypoint.sh"]

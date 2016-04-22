@@ -4,15 +4,6 @@
   description: |
     Container orchestration platform for Mesos and DCOS
   questions:
-  - variable: VERSION
-    label: Marathon Version
-    description: Select the version of Marathon to run.
-    required: true
-    type: enum
-    default: 1.1.1-centos-7
-    options:
-    - 1.1.1-centos-7
-    - 1.1.1-ubuntu-15.04
   - variable: ZK_SERVICE
     description: Choose the Zookeeper service to use.
     label: Zookeeper Service

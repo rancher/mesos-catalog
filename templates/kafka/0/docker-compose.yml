@@ -1,5 +1,5 @@
 scheduler:
-  image: llparse/kafka-scheduler:${VERSION}
+  image: llparse/kafka-scheduler:latest
   environment:
     MESOS_SERVICE: ${MESOS_SERVICE}
     ZK_SERVICE: ${ZK_SERVICE}

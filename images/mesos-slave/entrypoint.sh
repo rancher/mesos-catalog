@@ -42,20 +42,12 @@ function zk_string {
   echo ${ZK_STRING}${ZK_CHROOT}
 }
 
-{% if type == 'master' %}
-export MESOS_ZK=$(zk_string)
-{% else %}
 export MESOS_MASTER=$(zk_string)
-{% endif %}
 export MESOS_IP=$(metadata self/container/primary_ip)
 export MESOS_HOSTNAME=$(metadata self/host/agent_ip)
 
 ### dunno how to use this ###
 if [ -n "$SECRET" ]; then
-    {% if type == 'master' %}
-    export MESOS_AUTHENTICATE=true
-    export MESOS_AUTHENTICATE_SLAVES=true
-    {% endif %}
     touch /tmp/credential
     chmod 600 /tmp/credential
     echo -n "$PRINCIPAL $SECRET" > /tmp/credential
@@ -63,11 +55,6 @@ if [ -n "$SECRET" ]; then
 fi
 ### / dunno how to use this ###
 
-/usr/sbin/mesos-{{ type }} \
-{% if type == 'master' %}
-  --zk_session_timeout=${ZK_SESSION_TIMEOUT} \
-  --port=${MASTER_PORT} \
-{% else %}
+/usr/sbin/mesos-slave \
   --port=${SLAVE_PORT} \
-{% endif %}
   "$@"

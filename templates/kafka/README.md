@@ -1,5 +1,4 @@
-* Kafka Mesos Framework
-
+# Kafka Mesos Framework
 
 Kafka framework doesn't support Docker executors, so your Mesos Slaves must have `java` installed.
 

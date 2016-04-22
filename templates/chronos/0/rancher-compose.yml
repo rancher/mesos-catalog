@@ -4,15 +4,6 @@
   description: |
     Distributed, fault-tolerant cron
   questions:
-  - variable: VERSION
-    label: Chronos Version
-    description: Select the version of Chronos to run.
-    required: true
-    type: enum
-    default: 2.4.0-centos-7
-    options:
-    - 2.4.0-centos-7
-    - 2.4.0-ubuntu-14.04
   - variable: ZK_SERVICE
     description: Choose the Zookeeper service to use.
     label: Zookeeper Service

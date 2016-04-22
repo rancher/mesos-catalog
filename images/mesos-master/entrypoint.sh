@@ -6,11 +6,14 @@ METADATA=$METADATA_HOST/$METADATA_VERSION
 function metadata { echo $(curl -s $METADATA/$1); }
 ###############################################################################
 
+MESOS_CLUSTER=${MESOS_CLUSTER:-"$(metadata self/stack/name)"}
+MASTER_PORT=${MASTER_PORT:-"5050"}
+SLAVE_PORT=${SLAVE_PORT:-"5051"}
+ZK_SESSION_TIMEOUT=${ZK_SESSION_TIMEOUT:-"10secs"}
 PRINCIPAL=${PRINCIPAL:-root}
-ZK_SERVICE=${ZK_SERVICE:-"mesos/zk"}
-MESOS_SERVICE=${MESOS_SERVICE:="mesos/mesos"}
 
 function zk_service {
+  ZK_SERVICE=${ZK_SERVICE:-"mesos/zk"}
   IFS='/' read -ra ZK <<< "$ZK_SERVICE"
   echo $(metadata stacks/${ZK[0]}/services/${ZK[1]}/$1)
 }
@@ -26,6 +29,7 @@ function zk_container_primary_ip {
 }
 
 function zk_string {
+  ZK_CHROOT=${ZK_CHROOT:-"/$(metadata self/stack/name)"}
   ZK_STRING=
   for container in $(zk_service containers); do
     ip=$(zk_container_primary_ip $container)
@@ -35,28 +39,25 @@ function zk_string {
       ZK_STRING=$ZK_STRING,$ip:2181
     fi
   done
-  echo ${ZK_STRING}
+  echo ${ZK_STRING}${ZK_CHROOT}
 }
 
-function mesos_stack {
-  IFS='/' read -ra X <<< "$MESOS_SERVICE"
-  echo ${X[0]}
-}
-
-zk=$(zk_string)
-export MARATHON_MASTER=$zk/$(mesos_stack)
-export MARATHON_ZK=$zk/$(metadata self/stack/name)
-export MARATHON_HOSTNAME=$(metadata self/host/agent_ip)
-export MARATHON_FRAMEWORK_NAME=$(metadata self/stack/name)
+export MESOS_ZK=$(zk_string)
+export MESOS_IP=$(metadata self/container/primary_ip)
+export MESOS_HOSTNAME=$(metadata self/host/agent_ip)
 
 ### dunno how to use this ###
 if [ -n "$SECRET" ]; then
-    export MARATHON_MESOS_AUTHENTICATION_PRINCIPAL=${MARATHON_MESOS_AUTHENTICATION_PRINCIPAL:-$PRINCIPAL}
-    touch /tmp/secret
-    chmod 600 /tmp/secret
-    echo -n "$SECRET" > /tmp/secret
-    export MARATHON_MESOS_AUTHENTICATION_SECRET_FILE=/tmp/secret
+    export MESOS_AUTHENTICATE=true
+    export MESOS_AUTHENTICATE_SLAVES=true
+    touch /tmp/credential
+    chmod 600 /tmp/credential
+    echo -n "$PRINCIPAL $SECRET" > /tmp/credential
+    export MESOS_CREDENTIAL=/tmp/credential
 fi
 ### / dunno how to use this ###
 
-java -jar /marathon.jar "$@"
+/usr/sbin/mesos-master \
+  --zk_session_timeout=${ZK_SESSION_TIMEOUT} \
+  --port=${MASTER_PORT} \
+  "$@"
