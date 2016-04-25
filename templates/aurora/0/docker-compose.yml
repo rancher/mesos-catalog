@@ -1,7 +1,10 @@
-aurora:
-  image: llparse/aurora:${VERSION}
+scheduler:
+  image: llparse/aurora:latest
   environment:
     ZK_SERVICE: ${ZK_SERVICE}
+    MESOS_SERVICE: ${MESOS_SERVICE}
     AURORA_HTTP_PORT: ${AURORA_HTTP_PORT}
+  volumes:
+  - "/var/run/docker.sock:/var/run/docker.sock"
   ports:
   - "${AURORA_HTTP_PORT}:${AURORA_HTTP_PORT}"
