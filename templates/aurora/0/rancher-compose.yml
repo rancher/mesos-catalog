@@ -23,7 +23,7 @@
 aurora:
   scale: 1
   health_check:
-    port: ${SCHEDULER_PORT}
+    port: ${AURORA_HTTP_PORT}
     interval: 3000
     unhealthy_threshold: 2
     healthy_threshold: 2
