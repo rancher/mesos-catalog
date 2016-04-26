@@ -1,0 +1,38 @@
+FROM {{ user }}/mesos-base:latest
+
+RUN \
+  apt-get update && \
+  apt-get install -y \
+    bison \
+    git \
+    libapr1-dev \
+    libcurl4-nss-dev \
+    libsasl2-dev \
+    libsvn-dev \
+    python-dev && \
+  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*    
+
+# Docker
+RUN curl -sL https://get.docker.com/ | sh
+
+# Aurora
+RUN \
+  git clone git://git.apache.org/aurora.git /aurora && \
+  cd /aurora && \
+  git checkout rel/0.13.0
+
+ENV MESOS_VERSION 0.27.2
+RUN \
+  mkdir -p /aurora/third_party && \
+  curl -L https://svn.apache.org/repos/asf/aurora/3rdparty/ubuntu/trusty64/python/mesos.native-${MESOS_VERSION}-py2.7-linux-x86_64.egg -o /aurora/third_party/mesos.native-${MESOS_VERSION}-py2.7-linux-x86_64.egg && \
+  curl -LO http://people.apache.org/~jfarrell/thrift/0.9.1/contrib/deb/ubuntu/12.04/thrift-compiler_0.9.1_amd64.deb && \
+  dpkg --install thrift-compiler_0.9.1_amd64.deb && \
+  rm -f thrift-compiler_0.9.1_amd64.deb mesos_${MESOS_VERSION}-1.0.ubuntu1204_amd64.deb
+
+# build aurora 
+RUN update-ca-certificates -f
+ADD build.sh /aurora/
+RUN cd /aurora && bash ./build.sh
+
+ADD entrypoint.sh /
+ENTRYPOINT ["/entrypoint.sh"]
