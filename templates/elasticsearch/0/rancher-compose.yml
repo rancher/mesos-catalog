@@ -4,14 +4,6 @@
   description: |
     You know, for search
   questions:
-  - variable: VERSION
-    label: Elasticsearch Version
-    description: Select the version of Marathon to run.
-    required: true
-    type: enum
-    default: 1.0.1-ubuntu-14.04
-    options:
-    - 1.0.1-ubuntu-14.04
   - variable: ZK_SERVICE
     description: Choose the Zookeeper service to use.
     label: Zookeeper Service

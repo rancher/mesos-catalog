@@ -1,5 +1,5 @@
 scheduler:
-  image: llparse/elasticsearch-scheduler:${VERSION}
+  image: llparse/elasticsearch:latest
   environment:
     MESOS_SERVICE: ${MESOS_SERVICE}
     ZK_SERVICE: ${ZK_SERVICE}
