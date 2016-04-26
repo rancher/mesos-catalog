@@ -1,0 +1,75 @@
+#!/bin/bash -ex
+###############################################################################
+METADATA_HOST=rancher-metadata.rancher.internal
+METADATA_VERSION=2015-12-19
+METADATA=$METADATA_HOST/$METADATA_VERSION
+function metadata { echo $(curl -s $METADATA/$1); }
+###############################################################################
+
+ZK_SERVICE=${ZK_SERVICE:-"mesos/zk"}
+MESOS_SERVICE=${MESOS_SERVICE:-"mesos/mesos"}
+
+function zk_service {
+  IFS='/' read -ra ZK <<< "$ZK_SERVICE"
+  echo $(metadata stacks/${ZK[0]}/services/${ZK[1]}/$1)
+}
+
+if [ "$(zk_service containers)" == "Not found" ]; then
+  echo "A zookeeper ensemble is required, but '$ZK_SERVICE' was not found."
+  sleep 1 && exit 1
+fi
+
+function zk_container_primary_ip {
+  IFS='=' read -ra c <<< "$1"
+  echo $(zk_service containers/${c[1]}/primary_ip)  
+}
+
+function zk_string {
+  ZK_STRING=
+  for container in $(zk_service containers); do
+    ip=$(zk_container_primary_ip $container)
+    if [ "$ZK_STRING" == "" ]; then
+      ZK_STRING=zk://$ip:2181
+    else
+      ZK_STRING=$ZK_STRING,$ip:2181
+    fi
+  done
+  echo ${ZK_STRING}
+}
+
+function mesos_stack {
+  IFS='/' read -ra X <<< "$MESOS_SERVICE"
+  echo ${X[0]}
+}
+
+STACK_NAME=${STACK_NAME:-$(metadata self/stack/name)}
+STACK_NAME=${STACK_NAME:-elasticsearch}
+
+DOCKER_IMAGE=${DOCKER_IMAGE:-"elasticsearch:2.3.1"}
+NODE_COUNT=${NODE_COUNT:-3}
+CPU_SHARES=${CPU_SHARES:-1.0}
+DISK_MB=${DISK_MB:-1024.0}
+RAM_MB=${RAM_MB:-256.0}
+FAILOVER_TIMEOUT_MS=${FAILOVER_TIMEOUT_MS:-2592000}
+SCHEDULER_PORT=${SCHEDULER_PORT:-31100}
+ZK_MESOS_TIMEOUT_MS=${ZK_MESOS_TIMEOUT_MS:-20000}
+ZK_MESOS_URL=${ZK_MESOS_URL:-$(zk_string)/$(mesos_stack)}
+
+exec java \
+  $JAVA_OPTS \
+  -Djava.library.path=/usr/lib \
+  -jar /mesos-elasticsearch-scheduler.jar \
+  --elasticsearchDockerImage ${DOCKER_IMAGE} \
+  --elasticsearchNodes ${NODE_COUNT} \
+  --elasticsearchClusterName ${STACK_NAME} \
+  --elasticsearchCpu ${CPU_SHARES} \
+  --elasticsearchDisk ${DISK_MB} \
+  --elasticsearchRam ${RAM_MB} \
+  --frameworkFailoverTimeout ${FAILOVER_TIMEOUT_MS} \
+  --frameworkName ${STACK_NAME} \
+  --frameworkUseDocker true \
+  --useIpAddress true \
+  --webUiPort ${SCHEDULER_PORT} \
+  --zookeeperMesosTimeout ${ZK_MESOS_TIMEOUT_MS} \
+  --zookeeperMesosUrl ${ZK_MESOS_URL} \
+  "$@"

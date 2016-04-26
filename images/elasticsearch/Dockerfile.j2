@@ -1,0 +1,11 @@
+FROM {{ user }}/mesos-base:latest
+
+ENV VERSION 1.0.1
+
+RUN \
+  curl -L https://github.com/mesos/elasticsearch/releases/download/$VERSION/mesos-elasticsearch-scheduler-$VERSION.jar \
+    -o /mesos-elasticsearch-scheduler.jar
+
+ADD entrypoint.sh /
+
+ENTRYPOINT ["/entrypoint.sh"]
