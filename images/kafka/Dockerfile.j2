@@ -8,7 +8,7 @@ RUN \
   curl -L http://archive.apache.org/dist/kafka/$KAFKA_VERSION/kafka_2.11-0.9.0.1.tgz -o /kafka_2.11-0.9.0.1.tgz
 
 RUN \
-  echo 'java -jar kafka-mesos.jar "$@" --api http://localhost:7000' > /usr/local/bin/kafka && \
+  echo 'java -jar /kafka-mesos.jar "$@" --api http://localhost:7000' > /usr/local/bin/kafka && \
   chmod +x /usr/local/bin/kafka
 
 ADD entrypoint.sh /

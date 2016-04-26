@@ -1,11 +1,11 @@
 FROM {{ user }}/mesos-base:latest
 
-ENV CHRONOS_VERSION 2.4.0-RC1
+ENV VERSION 2.4.0-RC1
 
 RUN \
-  curl -L https://github.com/mesos/chronos/releases/download/$CHRONOS_VERSION/chronos-$CHRONOS_VERSION.tgz | tar xzf - && \
-  mv chronos-$CHRONOS_VERSION/target/chronos-$CHRONOS_VERSION.jar /chronos.jar && \
-  rm -rf chronos-$CHRONOS_VERSION
+  curl -L https://github.com/mesos/chronos/releases/download/$VERSION/chronos-$VERSION.tgz | tar xzf - && \
+  mv chronos-$VERSION/target/chronos-$VERSION.jar /chronos.jar && \
+  rm -rf chronos-$VERSION
 
 ADD entrypoint.sh /
 

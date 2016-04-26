@@ -1,11 +1,11 @@
 FROM {{ user }}/mesos-base:latest
 
-ENV MARATHON_VERSION 1.1.0-RC1
+ENV VERSION 1.1.0-RC1
 
 RUN \
-  curl -L http://downloads.mesosphere.com/marathon/v$MARATHON_VERSION/marathon-$MARATHON_VERSION.tgz | tar xzf - && \
-  mv marathon-$MARATHON_VERSION/target/scala-2.11/marathon-assembly-$MARATHON_VERSION.jar /marathon.jar && \
-  rm -rf marathon-$MARATHON_VERSION
+  curl -L http://downloads.mesosphere.com/marathon/v$VERSION/marathon-$VERSION.tgz | tar xzf - && \
+  mv marathon-$VERSION/target/scala-2.11/marathon-assembly-$VERSION.jar /marathon.jar && \
+  rm -rf marathon-$VERSION
 
 ADD entrypoint.sh /
 

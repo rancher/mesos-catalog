@@ -4,7 +4,7 @@ from subprocess import call
 from os import listdir, remove
 
 user='llparse'
-projects=['mesos-base', 'mesos-master', 'mesos-slave', 'marathon', 'chronos', 'kafka']
+projects=['mesos-base', 'mesos-master', 'mesos-slave', 'marathon', 'chronos', 'kafka', 'elasticsearch', 'aurora']
 
 for project in projects:
   generated=[]

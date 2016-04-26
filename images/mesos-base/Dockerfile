@@ -4,7 +4,7 @@ RUN \
   apt-key adv --keyserver keyserver.ubuntu.com --recv 86F44E2A && \
   echo deb http://ppa.launchpad.net/openjdk-r/ppa/ubuntu trusty main > /etc/apt/sources.list.d/openjdk-r.list && \
   apt-get update && \
-  apt-get -y install openjdk-8-jre-headless && \
+  apt-get -y install openjdk-8-jdk-headless && \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN \

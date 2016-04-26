@@ -59,4 +59,12 @@ if [ -n "$SECRET" ]; then
 fi
 ### / dunno how to use this ###
 
-java -jar /marathon.jar "$@"
+CMD="java -jar /marathon.jar"
+
+# Parse environment variables
+for k in `set | grep ^MARATHON_ | cut -d= -f1`; do
+    eval v=\$$k
+    CMD="$CMD --`echo $k | cut -d_ -f2- | tr '[:upper:]' '[:lower:]'` $v"
+done
+
+exec $CMD "$@"
