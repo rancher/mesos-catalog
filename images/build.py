@@ -3,7 +3,7 @@ from jinja2 import Template, Environment, FileSystemLoader
 from subprocess import call
 from os import listdir, remove
 
-user='llparse'
+user='rancher'
 projects=['mesos-base', 'mesos-master', 'mesos-slave', 'marathon', 'chronos', 'kafka', 'elasticsearch', 'aurora']
 
 for project in projects:

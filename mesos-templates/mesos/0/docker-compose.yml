@@ -1,5 +1,5 @@
 master:
-  image: llparse/mesos-master:latest
+  image: rancher/mesos-master:latest
   environment:
     MESOS_CLUSTER: ${MESOS_CLUSTER}
     MESOS_QUORUM: ${MESOS_QUORUM}
@@ -15,7 +15,7 @@ master:
   volumes:
   - /data
 slave:
-  image: llparse/mesos-slave:latest
+  image: rancher/mesos-slave:latest
   environment:
     SLAVE_PORT: ${SLAVE_PORT}
     ZK_SERVICE: ${ZK_SERVICE}

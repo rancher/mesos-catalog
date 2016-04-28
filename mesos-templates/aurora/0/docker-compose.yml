@@ -1,5 +1,5 @@
 scheduler:
-  image: llparse/aurora:latest
+  image: rancher/aurora:latest
   environment:
     ZK_SERVICE: ${ZK_SERVICE}
     MESOS_SERVICE: ${MESOS_SERVICE}

@@ -1,5 +1,5 @@
 scheduler:
-  image: llparse/elasticsearch:latest
+  image: rancher/elasticsearch:latest
   environment:
     MESOS_SERVICE: ${MESOS_SERVICE}
     ZK_SERVICE: ${ZK_SERVICE}
