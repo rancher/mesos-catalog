@@ -8,3 +8,4 @@ marathon:
   - "${MARATHON_HTTP_PORT}:${MARATHON_HTTP_PORT}"
   cap_add:
   - SYS_ADMIN
+  privileged: true
