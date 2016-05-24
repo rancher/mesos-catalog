@@ -6,5 +6,4 @@ scheduler:
     SCHEDULER_PORT: ${SCHEDULER_PORT}
   ports:
   - "${SCHEDULER_PORT}:${SCHEDULER_PORT}"
-  cap_add:
-  - SYS_ADMIN
+  privileged: true

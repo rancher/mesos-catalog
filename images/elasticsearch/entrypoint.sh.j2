@@ -6,6 +6,12 @@ METADATA=$METADATA_HOST/$METADATA_VERSION
 function metadata { echo $(curl -s $METADATA/$1); }
 ###############################################################################
 
+# network hack
+cp /etc/hosts /etc/hosts.tmp
+umount /etc/hosts
+sed -i "s/.*$(hostname)/$(metadata self/container/primary_ip)\t$(hostname)/g" /etc/hosts.tmp
+cp /etc/hosts.tmp /etc/hosts
+
 ZK_SERVICE=${ZK_SERVICE:-"mesos/zk"}
 MESOS_SERVICE=${MESOS_SERVICE:-"mesos/mesos"}
 

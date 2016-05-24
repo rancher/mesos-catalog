@@ -6,6 +6,12 @@ METADATA=$METADATA_HOST/$METADATA_VERSION
 function metadata { echo $(curl -s $METADATA/$1); }
 ###############################################################################
 
+# network hack
+cp /etc/hosts /etc/hosts.tmp
+umount /etc/hosts
+sed -i "s/.*$(hostname)/$(metadata self/container/primary_ip)\t$(hostname)/g" /etc/hosts.tmp
+cp /etc/hosts.tmp /etc/hosts
+
 MESOS_CLUSTER=${MESOS_CLUSTER:-"$(metadata self/stack/name)"}
 MASTER_PORT=${MASTER_PORT:-"5050"}
 SLAVE_PORT=${SLAVE_PORT:-"5051"}
