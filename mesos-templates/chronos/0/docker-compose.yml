@@ -6,3 +6,5 @@ chronos:
     CHRONOS_HTTP_PORT: ${CHRONOS_HTTP_PORT}
   ports:
   - "${CHRONOS_HTTP_PORT}:${CHRONOS_HTTP_PORT}"
+  cap_add:
+  - SYS_ADMIN

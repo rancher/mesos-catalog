@@ -8,3 +8,5 @@ scheduler:
   - "/var/run/docker.sock:/var/run/docker.sock"
   ports:
   - "${AURORA_HTTP_PORT}:${AURORA_HTTP_PORT}"
+  cap_add:
+  - SYS_ADMIN

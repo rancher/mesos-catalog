@@ -7,4 +7,4 @@ marathon:
   ports:
   - "${MARATHON_HTTP_PORT}:${MARATHON_HTTP_PORT}"
   cap_add:
-  - NET_ADMIN
+  - SYS_ADMIN

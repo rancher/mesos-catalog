@@ -8,4 +8,5 @@ scheduler:
     NODE_COUNT: ${NODE_COUNT}
   ports:
   - "${SCHEDULER_PORT}:${SCHEDULER_PORT}"
-  privileged: true
+  cap_add:
+  - SYS_ADMIN
