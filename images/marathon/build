@@ -1,0 +1,6 @@
+#!/bin/sh
+
+for release in $(cat releases); do
+  docker build --build-arg RELEASE=$release -t rancher/marathon:v$release .
+  docker push rancher/marathon:v$release
+done

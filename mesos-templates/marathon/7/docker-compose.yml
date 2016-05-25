@@ -1,5 +1,5 @@
 marathon:
-  image: rancher/marathon:v0.13.0
+  image: rancher/marathon:v0.15.4
   environment:
     ZK_SERVICE: Mesos/zookeeper
     MESOS_SERVICE: Mesos/mesos-master

@@ -1,5 +1,5 @@
 .catalog:
-  version: v0.13.1
+  version: v1.1.0
   questions:
   - variable: MARATHON_HTTP_PORT
     description: Port to expose Marathon on.
