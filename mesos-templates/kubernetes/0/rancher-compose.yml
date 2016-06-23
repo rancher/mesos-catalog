@@ -1,0 +1,12 @@
+.catalog:
+  name: Kubernetes
+  version: v1
+  questions:
+  - variable: MASTER_ADDY
+    label: Mesos master addy
+    type: string
+    default: 127.0.0.1:5050
+  - variable: DOCKER_HOST_IP
+    label: Docker host ip
+    type: string
+    default: 127.0.0.1

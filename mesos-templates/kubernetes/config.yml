@@ -1,0 +1,7 @@
+name: Kubernetes
+description: |
+  A container orchestration platform
+version: v1
+category: Frameworks
+maintainer: James Oliver <james@rancher.com>
+minimum_rancher_version: v1.0.0

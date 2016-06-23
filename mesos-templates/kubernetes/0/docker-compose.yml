@@ -1,0 +1,9 @@
+k8s:
+  image: llparse/kubernetes:latest
+  net: host
+  environment:
+    GLOG_v: 3
+    K8SM_MESOS_MASTER: ${MASTER_ADDY}
+    DEFAULT_DNS_NAME: ${DOCKER_HOST_IP}
+    HOST: ${DOCKER_HOST_IP}
+    MESOS_SANDBOX: /tmp
