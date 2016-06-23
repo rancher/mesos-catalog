@@ -6,19 +6,6 @@ k8s-scheduler:
   links:
   - etcd
 
-k8s:
-  image: llparse/kubernetes:latest
-  environment:
-    GLOG_v: 3
-    K8SM_MESOS_MASTER: ${MESOS_MASTER}
-    DEFAULT_DNS_NAME: ${DEFAULT_DNS_NAME}
-    HOST: ${DOCKER_HOST_IP}
-    MESOS_SANDBOX: /data
-    DNS_SERVER_IP: 169.254.169.250
-    DNS_DOMAIN: rancher.internal
-    DNS_NAMESERVERS: 8.8.8.8:53,8.8.4.4:53
-    DEBUG: true
-
 etcd:
   image: rancher/etcd:v2.3.6
   labels:
