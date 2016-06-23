@@ -7,7 +7,7 @@ k8s-apiserver:
       --insecure-port=8080
       --secure-port=0
       --cloud-provider=mesos
-      --cloud-config=mesos-cloud.conf
+      --cloud-config=/mesos-cloud.conf
       --v=1
   links:
   - etcd
