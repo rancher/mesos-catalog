@@ -2,7 +2,7 @@
   name: Kubernetes
   version: v1
   questions:
-  - variable: MASTER_ADDY
+  - variable: MESOS_MASTER
     label: Mesos master addy
     type: string
     default: 127.0.0.1:5050
@@ -10,3 +10,7 @@
     label: Docker host ip
     type: string
     default: 127.0.0.1
+  - variable: DEFAULT_DNS_NAME
+    label: Default DNS name
+    type: string
+    default: kubernetes.rancher.internal
