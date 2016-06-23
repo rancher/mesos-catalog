@@ -1,8 +1,14 @@
-k8s-scheduler:
+k8s-apiserver:
   image: llparse/mesos-k8s:v1.2.4
   command: |
-    k8sm-scheduler
-      --etcd-servers http://etcd:2379
+    km apiserver
+      --etcd-servers=http://etcd:2379
+      --service-cluster-ip-range=10.43.0.0/16
+      --insecure-port=8080
+      --secure-port=0
+      --cloud-provider=mesos
+      --cloud-config=mesos-cloud.conf
+      --v=1
   links:
   - etcd
 
