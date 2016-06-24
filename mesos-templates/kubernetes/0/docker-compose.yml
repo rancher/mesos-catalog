@@ -4,6 +4,7 @@ apiserver:
     km apiserver
       --etcd-servers=http://etcd:2379
       --service-cluster-ip-range=10.43.0.0/16
+      --insecure-bind-address=0.0.0.0
       --insecure-port=8080
       --secure-port=0
       --cloud-provider=mesos
