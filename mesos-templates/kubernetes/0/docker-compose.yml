@@ -1,13 +1,8 @@
 scheduler:
   image: llparse/mesos-k8s:v1.2.4
-  command: |
-    km scheduler
-    --etcd-servers=http://etcd:2379
-    --mesos-user=root
-    --api-servers=http://apiserver.rancher.internal:8888
-    --cluster-dns=169.254.169.250
-    --cluster-domain=rancher.internal
-    --v=${VERBOSITY}
+  entrypoint: /scheduler.sh
+  environment:
+    VERBOSITY: ${VERBOSITY}
   links:
   - apiserver
 
