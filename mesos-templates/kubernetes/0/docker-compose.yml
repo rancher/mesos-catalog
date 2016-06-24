@@ -1,4 +1,4 @@
-k8s-apiserver:
+apiserver:
   image: llparse/mesos-k8s:v1.2.4
   command: |
     km apiserver
@@ -8,9 +8,11 @@ k8s-apiserver:
       --secure-port=0
       --cloud-provider=mesos
       --cloud-config=/mesos-cloud.conf
-      --v=1
+      --v=${VERBOSITY}
   links:
   - etcd
+  ports:
+  - "8080:8080"
 
 etcd:
   image: rancher/etcd:v2.3.6
