@@ -4,7 +4,7 @@ scheduler:
     km scheduler
     --etcd-servers=http://etcd:2379
     --mesos-user=root
-    --api-servers=apiserver:8888
+    --api-servers=http://apiserver.rancher.internal:8888
     --cluster-dns=169.254.169.250
     --cluster-domain=rancher.internal
     --v=${VERBOSITY}
@@ -15,7 +15,7 @@ controller-manager:
   image: llparse/mesos-k8s:v1.2.4
   command: |
     km controller-manager
-      --master=apiserver:8888
+      --master=http://apiserver.rancher.internal:8888
       --cloud-provider=mesos
       --cloud-config=/mesos-cloud.conf
       --v=${VERBOSITY}
