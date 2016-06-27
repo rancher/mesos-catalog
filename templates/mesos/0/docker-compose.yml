@@ -9,6 +9,7 @@ zookeeper:
     io.rancher.sidekicks: zookeeper-data
   volumes_from:
   - zookeeper-data
+
 zookeeper-data:
   image: busybox
   entrypoint: /bin/true
@@ -18,6 +19,7 @@ zookeeper-data:
   net: none
   volumes:
   - /data
+
 mesos-master:
   image: llparse/mesos-master:latest
   environment:
@@ -32,6 +34,9 @@ mesos-master:
     io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
   volumes:
   - /data
+  links:
+  - zookeeper
+
 mesos-slave:
   image: llparse/mesos-slave:latest
   environment:
@@ -47,3 +52,5 @@ mesos-slave:
   - /data:/data
   privileged: true
   net: host
+  links:
+  - mesos-master
