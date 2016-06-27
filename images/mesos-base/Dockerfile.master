@@ -1,0 +1,7 @@
+FROM alpine:3.3
+
+RUN apk add -U openjdk8-jre cyrus-sasl-dev cyrus-sasl-crammd5 subversion-dev fts-dev libstdc++ curl-dev
+
+ADD libmesos-0.28.1.so /usr/lib/libmesos-0.28.1.so
+
+ADD mesos-master /usr/bin/mesos-master

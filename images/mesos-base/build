@@ -1,0 +1,16 @@
+#!/bin/sh
+
+user=llparse
+# Build libmesos.so and copy it out of the container
+if [ ! -f libmesos-0.28.1.so ] || [ ! -f libsasl2.so.3.0.0 ]; then
+  docker build -t $user/mesos-build-tmp -f Dockerfile.build .
+  docker run -d --name mesos-build-tmp $user/mesos-build-tmp sleep 30
+  docker cp mesos-build-tmp:/mesos/build/src/.libs/libmesos-0.28.1.so .
+  docker cp mesos-build-tmp:/usr/lib/libsasl2.so.3.0.0 .
+  docker cp mesos-build-tmp:/usr/local/sbin/mesos-master .
+  docker cp mesos-build-tmp:/usr/local/sbin/mesos-slave .
+  docker rm -f mesos-build-tmp
+fi
+
+# Create base image
+docker build -t $user/mesos-base:v0.28.1 .
