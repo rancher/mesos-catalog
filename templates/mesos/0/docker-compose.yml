@@ -37,8 +37,6 @@ mesos-slave:
   environment:
     SLAVE_PORT: 5051
     ZK_SERVICE: mesos/zookeeper
-  ports:
-  - "5051:5051"
   labels:
     io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
     io.rancher.scheduler.global: 'true'
