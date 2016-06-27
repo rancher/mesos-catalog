@@ -28,12 +28,11 @@ mesos-master:
     ZK_CHROOT: /mesos
     ZK_SERVICE: mesos/zookeeper
     ZK_SESSION_TIMEOUT: 10secs
-  ports:
-  - "5050:5050"
   labels:
     io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
   volumes:
-  - /data
+  - /data/master:/data/master
+  net: host
   links:
   - zookeeper
 
@@ -49,7 +48,7 @@ mesos-slave:
     io.rancher.container.dns: 'true'
   volumes:
   - /var/run/docker.sock:/var/run/docker.sock
-  - /data:/data
+  - /data/slave:/data/slave
   privileged: true
   net: host
   links:
