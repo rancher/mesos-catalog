@@ -21,9 +21,9 @@ zookeeper-data:
 mesos-master:
   image: llparse/mesos-master:latest
   environment:
-    MESOS_CLUSTER: Rancher
     MESOS_QUORUM: 2
     MASTER_PORT: 5050
+    ZK_CHROOT: mesos
     ZK_SERVICE: mesos/zookeeper
     ZK_SESSION_TIMEOUT: 10secs
   ports:
@@ -36,6 +36,7 @@ mesos-slave:
   image: llparse/mesos-slave:latest
   environment:
     SLAVE_PORT: 5051
+    ZK_CHROOT: mesos
     ZK_SERVICE: mesos/zookeeper
   labels:
     io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
