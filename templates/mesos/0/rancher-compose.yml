@@ -8,7 +8,7 @@ zookeeper:
     response_timeout: 3000
     unhealthy_threshold: 2
     healthy_threshold: 2
-mesos-master:
+master:
   scale: 3
   retain_ip: true
   health_check:
@@ -18,7 +18,7 @@ mesos-master:
     response_timeout: 2000
     unhealthy_threshold: 2
     healthy_threshold: 2
-mesos-slave:
+slave:
   health_check:
     port: 5051
     request_line: ''

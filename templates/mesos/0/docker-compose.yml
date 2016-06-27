@@ -6,11 +6,11 @@ zookeeper:
     CONFD_INTERVAL: 0
   labels:
     io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
-    io.rancher.sidekicks: zookeeper-data
+    io.rancher.sidekicks: data
   volumes_from:
-  - zookeeper-data
+  - data
 
-zookeeper-data:
+data:
   image: busybox
   entrypoint: /bin/true
   labels:
@@ -20,7 +20,7 @@ zookeeper-data:
   volumes:
   - /data
 
-mesos-master:
+master:
   image: llparse/mesos-master:latest
   environment:
     MESOS_QUORUM: 2
@@ -30,13 +30,14 @@ mesos-master:
     ZK_SESSION_TIMEOUT: 10secs
   labels:
     io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+    io.rancher.container.dns: 'true'
   volumes:
   - /data/master:/data/master
   net: host
   links:
   - zookeeper
 
-mesos-slave:
+slave:
   image: llparse/mesos-slave:latest
   environment:
     SLAVE_PORT: 5051
@@ -52,4 +53,4 @@ mesos-slave:
   privileged: true
   net: host
   links:
-  - mesos-master
+  - master
