@@ -1,0 +1,28 @@
+.catalog:
+  name: Kubernetes
+  version: v1
+  questions:
+  - variable: VERBOSITY
+    label: Kubernetes verbosity level
+    type: enum
+    default: 1
+    options:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+  - variable: DEFAULT_DNS_NAME
+    label: Default DNS name
+    type: string
+    default: kubernetes.rancher.internal
+etcd:
+  scale: 3
+  health_check:
+    port: 2379
+    interval: 7500
+    unhealthy_threshold: 2
+    request_line: '/health'
+    healthy_threshold: 2
+    response_timeout: 5000
