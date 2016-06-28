@@ -49,6 +49,7 @@ slave:
     io.rancher.container.dns: 'true'
   volumes:
   - /var/run/docker.sock:/var/run/docker.sock
+  - /var/lib/docker:/var/lib/docker
   - /data/slave:/data/slave
   privileged: true
   net: host
